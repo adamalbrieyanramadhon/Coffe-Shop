@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kopiku - Premium Artisan Coffee Shop</title>
+    <style>
+        /* -----------------------------------------------------------
+           1. RESET & FONTS
+           ----------------------------------------------------------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --primary-dark: #2c1e16;
+            --accent-caramel: #d4a373;
+            --bg-latte: #faedcd;
+            --bg-light: #fefae0;
+            --text-dark: #4a3b32;
+            --white: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden; /* Mencegah layar geser ke samping */
+        }
+
+        /* -----------------------------------------------------------
+           2. NAVIGATION HEADER
+           ----------------------------------------------------------- */
+        header {
+            background-color: var(--primary-dark);
+            padding: 20px 8%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            color: var(--accent-caramel);
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--bg-light);
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-caramel);
+        }
+
+        .content-wrapper {
+            margin-top: 70px;
+        }
+
+        /* -----------------------------------------------------------
+           3. HERO SECTION
+           ----------------------------------------------------------- */
+        .hero {
+            background: linear-gradient(rgba(44, 30, 22, 0.2), rgba(44, 30, 22, 0.4)), 
+                        url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1600&q=80') no-repeat center center/cover;
+            height: 85vh;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            color: var(--white);
+        }
+
+        .hero-overlay-box {
+            background-color: rgba(44, 30, 22, 0.85);
+            padding: 40px 50px;
+            border-radius: 20px;
+            max-width: 750px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(212, 163, 115, 0.2);
+        }
+
+        .hero h1 {
+            color: var(--accent-caramel);
+            font-size: 42px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            color: var(--bg-light);
+            font-size: 18px;
+            margin-bottom: 35px;
+            line-height: 1.7;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-caramel);
+            color: var(--primary-dark);
+            padding: 14px 35px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--bg-light);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* -----------------------------------------------------------
+           4. VALUE SECTION & LAYOUT UMUM
+           ----------------------------------------------------------- */
+        .features, .menu, .lokasi {
+            padding: 80px 8%;
+            text-align: center;
+        }
+
+        .features { background-color: var(--white); }
+        .menu { background-color: var(--bg-latte); }
+        .lokasi { background-color: var(--primary-dark); color: var(--bg-light); }
+
+        .section-title {
+            color: var(--primary-dark);
+            font-size: 32px;
+            margin-bottom: 15px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-caramel);
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: var(--text-dark);
+            margin-bottom: 50px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .feature-box {
+            flex: 1;
+            min-width: 250px;
+            max-width: 320px;
+            padding: 30px 20px;
+            background-color: var(--bg-light);
+            border-radius: 15px;
+            border-left: 4px solid var(--accent-caramel);
+        }
+
+        .feature-box h3 {
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+            font-size: 20px;
+        }
+
+        /* -----------------------------------------------------------
+           5. MENU CARDS
+           ----------------------------------------------------------- */
+        .menu-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .menu-card {
+            background-color: var(--white);
+            border-radius: 15px;
+            width: 100%;
+            max-width: 320px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            text-align: left;
+        }
+
+        .menu-img-wrapper {
+            width: 100%;
+            height: 230px;
+            overflow: hidden;
+        }
+
+        .menu-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .menu-info { padding: 25px; }
+        .menu-info h3 { color: var(--primary-dark); font-size: 22px; margin-bottom: 10px; }
+        .menu-info p { font-size: 14px; margin-bottom: 20px; height: 65px; overflow: hidden; }
+
+        .menu-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            padding-top: 15px;
+        }
+
+        .harga { color: var(--primary-dark); font-weight: 700; font-size: 18px; }
+
+        .btn-pesan-kecil {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* -----------------------------------------------------------
+           6. LOKASI & FOOTER
+           ----------------------------------------------------------- */
+        .lokasi h2 { color: var(--accent-caramel); font-size: 32px; margin-bottom: 20px; }
+        .lokasi p { font-size: 16px; margin: 0 auto 30px auto; color: #dfdcd4; line-height: 1.8; max-width: 700px; }
+        .info-lokasi-box { border: 1px dashed var(--accent-caramel); padding: 20px; border-radius: 10px; display: inline-block; }
+        footer { background-color: #1a120c; color: #8c827a; text-align: center; padding: 20px; font-size: 14px; }
+
+        /* -----------------------------------------------------------
+           7. MODAL (POP-UP) ORDER
+           ----------------------------------------------------------- */
+        .modal {
+            display: none; position: fixed; z-index: 2000; left: 0; top: 0;
+            width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(3px);
+        }
+        .modal-content {
+            background-color: var(--bg-light); margin: 15% auto; padding: 30px;
+            border-radius: 15px; width: 90%; max-width: 400px; position: relative;
+        }
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: #aaa; }
+        .form-group { margin-bottom: 15px; text-align: left;}
+        .form-group label { display: block; margin-bottom: 5px; font-size: 14px; font-weight: bold; }
+        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 14px; }
+
+        /* -----------------------------------------------------------
+           8. RESPONSIVE / MOBILE FIXES (REVISI UTAMA)
+           ----------------------------------------------------------- */
+        @media screen and (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px 5%;
+            }
+            .nav-links {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .nav-links a {
+                margin: 5px 10px;
+                font-size: 14px;
+            }
+            .content-wrapper {
+                margin-top: 100px; /* Menyesuaikan header yang lebih tinggi di HP */
+            }
+            .hero {
+                height: auto;
+                padding: 80px 20px 60px;
+            }
+            .hero-overlay-box {
+                padding: 30px 20px;
+            }
+            .hero h1 {
+                font-size: 28px; /* Diperkecil untuk layar HP */
+            }
+            .hero p {
+                font-size: 15px;
+            }
+            .features, .menu, .lokasi {
+                padding: 50px 5%; /* Padding dikurangi agar tidak terlalu jauh jaraknya */
+            }
+            .section-title {
+                font-size: 26px;
+            }
+            .feature-box {
+                min-width: 100%; /* Kotak keunggulan memenuhi layar */
+            }
+            .menu-info p {
+                height: auto; /* Membiarkan teks mengalir natural di HP */
+            }
+            .modal-content {
+                margin: 30% auto;
+                width: 95%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">Kopiku.</a>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#home">Beranda</a></li>
+                <li><a href="#features">Keunggulan</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#lokasi">Lokasi</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="content-wrapper">
+        <section class="hero" id="home">
+            <div class="hero-overlay-box">
+                <h1>Rasa yang Pas, Suasana yang Nyaman</h1>
+                <p>Temukan keseimbangan sempurna dalam setiap seduhan artisan kami. Dari racikan kopi klasik bertekstur lembut hingga eksperimen menu menyegarkan.</p>
+                <a href="#menu" class="btn-primary">Jelajahi Menu</a>
+            </div>
+        </section>
+
+        <section class="features" id="features">
+            <h2 class="section-title">Mengapa Memilih Kami?</h2>
+            <p class="section-subtitle">Kami percaya secangkir kopi terbaik lahir dari ketelitian proses dan dedikasi rasa yang seimbang.</p>
+            
+            <div class="features-container">
+                <div class="feature-box">
+                    <h3>Biji Kopi Pilihan</h3>
+                    <p>Menggunakan 100% biji kopi single-origin lokal berkualitas premium.</p>
+                </div>
+                <div class="feature-box">
+                    <h3>Rasa Seimbang</h3>
+                    <p>Setiap racikan menu dirancang dengan takaran formula yang pas.</p>
+                </div>
+                <div class="feature-box">
+                    <h3>Ruang Estetis</h3>
+                    <p>Suasana kedai yang modern, tenang, dan nyaman. Cocok untuk produktivitas kerja.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="menu" id="menu">
+            <h2 class="section-title">Rekomendasi Menu</h2>
+            <p class="section-subtitle">Racikan andalan barista kami yang menjadi favorit utama.</p>
+            
+            <div class="menu-container">
+                <div class="menu-card">
+                    <div class="menu-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1557142046-c704a3adf364?w=500&q=80" alt="Coffee Tea Blend">
+                    </div>
+                    <div class="menu-info">
+                        <h3>Signature Coffee-Tea Blend</h3>
+                        <p>Kombinasi unik espresso pekat dengan seduhan teh aromatik pilihan.</p>
+                        <div class="menu-footer">
+                            <span class="harga">Rp 28.000</span>
+                            <button class="btn-pesan-kecil" onclick="bukaModal('Signature Coffee-Tea Blend', 'Rp 28.000')">Pesan</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-card">
+                    <div class="menu-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1551030173-122aabc4489c?w=500&q=80" alt="Artisan Latte">
+                    </div>
+                    <div class="menu-info">
+                        <h3>Classic Artisan Latte</h3>
+                        <p>Sentuhan espresso premium berpadu dengan kelembutan foam susu segar.</p>
+                        <div class="menu-footer">
+                            <span class="harga">Rp 25.000</span>
+                            <button class="btn-pesan-kecil" onclick="bukaModal('Classic Artisan Latte', 'Rp 25.000')">Pesan</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-card">
+                    <div class="menu-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=500&q=80" alt="Cold Brew">
+                    </div>
+                    <div class="menu-info">
+                        <h3>Midnight Cold Brew</h3>
+                        <p>Kopi hitam ekstraksi perlahan menggunakan air dingin. Sangat menyegarkan.</p>
+                        <div class="menu-footer">
+                            <span class="harga">Rp 30.000</span>
+                            <button class="btn-pesan-kecil" onclick="bukaModal('Midnight Cold Brew', 'Rp 30.000')">Pesan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="lokasi" id="lokasi">
+            <h2>Kunjungi Kedai Kami</h2>
+            <p>Mencari sudut ruang estetis yang nyaman untuk bekerja atau sekadar menikmati suasana? Mari singgah.</p>
+            <div class="info-lokasi-box">
+                <p style="margin-bottom: 5px; font-weight: bold; color: var(--accent-caramel);">Lokasi Utama:</p>
+                <p style="font-size: 16px; margin: 0;">Kawasan Pusat Kuliner, Bekasi, Jawa Barat</p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Kopiku. All Rights Reserved. Designed for Premium Coffee Shop Marketplace Template.</p>
+    </footer>
+
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="tutupModal()">&times;</span>
+            <h3 style="color: var(--primary-dark); margin-bottom: 15px;">Detail Pesanan</h3>
+            <p id="namaProduk" style="font-weight: bold; margin-bottom: 5px;"></p>
+            <p id="hargaProduk" style="color: var(--accent-caramel); margin-bottom: 20px;"></p>
+            
+            <form id="waForm">
+                <div class="form-group">
+                    <label>Nama Anda:</label>
+                    <input type="text" id="inputNama" placeholder="Masukkan nama..." required>
+                </div>
+                <div class="form-group">
+                    <label>Catatan Khusus:</label>
+                    <input type="text" id="inputCatatan" placeholder="Misal: Less sugar, es sedikit..." required>
+                </div>
+                <button type="button" class="btn-primary" style="width: 100%; margin-top: 10px;" onclick="kirimKeWA()">Kirim Pesanan via WA</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const noWhatsApp = "6281234567890"; 
+        let produkPilihan = "";
+        let hargaPilihan = "";
+
+        function bukaModal(nama, harga) {
+            produkPilihan = nama;
+            hargaPilihan = harga;
+            document.getElementById('namaProduk').innerText = produkPilihan;
+            document.getElementById('hargaProduk').innerText = hargaPilihan;
+            document.getElementById('orderModal').style.display = "block";
+        }
+
+        function tutupModal() {
+            document.getElementById('orderModal').style.display = "none";
+            document.getElementById('inputNama').value = "";
+            document.getElementById('inputCatatan').value = "";
+        }
+
+        function kirimKeWA() {
+            let namaPembeli = document.getElementById('inputNama').value;
+            let catatan = document.getElementById('inputCatatan').value;
+
+            if(namaPembeli === "") {
+                alert("Mohon isi nama Anda terlebih dahulu.");
+                return;
+            }
+
+            let pesan = `Halo Kopiku! Saya ingin memesan:%0A%0A`;
+            pesan += `*Produk:* ${produkPilihan}%0A`;
+            pesan += `*Harga:* ${hargaPilihan}%0A`;
+            pesan += `*Nama Pemesan:* ${namaPembeli}%0A`;
+            pesan += `*Catatan Khusus:* ${catatan ? catatan : '-' }%0A%0A`;
+            pesan += `Terima kasih!`;
+
+            let linkWA = `https://wa.me/${noWhatsApp}?text=${pesan}`;
+            window.open(linkWA, '_blank');
+            tutupModal();
+        }
+
+        window.onclick = function(event) {
+            let modal = document.getElementById('orderModal');
+            if (event.target == modal) {
+                tutupModal();
+            }
+        }
+    </script>
+</body>
+</html>
